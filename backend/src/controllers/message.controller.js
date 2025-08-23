@@ -32,7 +32,7 @@ export const getMessages = async (req, res) => {
     }
 }
 
-export default sendMessage = async (req, res) => {
+export const sendMessages = async (req, res) => {
     try {
         const { text, image } = req.body;
         const { id: receiverId } = req.params;
