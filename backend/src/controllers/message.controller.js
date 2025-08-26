@@ -4,7 +4,7 @@ import Message from "../models/message.model.js";
 export const getUsersForSidebars = async (req, res) => {
     try {
         const loggedInUserId = req.user._id;
-        const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
+        const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password"); // find all the users except me
 
         res.status(200).json(filteredUsers)
     } catch (error) {
