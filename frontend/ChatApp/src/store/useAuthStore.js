@@ -6,7 +6,7 @@ import { axiosInstance } from "../lib/axios.js";
 export const useAuthStore = create((set) => ({
     //set is a callback function and here we are returning an object set is the setter function
     authUser: null,//initially this is null as we dont know user is authenticated or not 
-    isSignniggIn: false,
+    isSignigUp: false,
     isLoggingIn: false,
     isUpdatingProfile: false,
 
@@ -15,7 +15,6 @@ export const useAuthStore = create((set) => ({
     checkAuth : async () => {
         try {
             const res = await axiosInstance.get("/auth/check")
-
             set({ authUser: res.data });
         } catch (error) {
             console.log("error in the checkAuth:", error)
@@ -23,5 +22,9 @@ export const useAuthStore = create((set) => ({
         } finally {
             set({ isCheckingAuth: false });
         }
+    },
+
+    signup : async(data)=>{
+
     }
 }))
