@@ -1,8 +1,7 @@
 import axios from "axios";
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
-
-
+import toast from "react-hot-toast";
 export const useAuthStore = create((set) => ({
     //set is a callback function and here we are returning an object set is the setter function
     authUser: null,//initially this is null as we dont know user is authenticated or not 
@@ -12,7 +11,7 @@ export const useAuthStore = create((set) => ({
 
     isCheckingAuth: true,//as soon as we refresh our page we'll check user is authenticated or not
 
-    checkAuth : async () => {
+    checkAuth: async () => {
         try {
             const res = await axiosInstance.get("/auth/check")
             set({ authUser: res.data });
@@ -24,7 +23,18 @@ export const useAuthStore = create((set) => ({
         }
     },
 
-    signup : async(data)=>{
+    signup: async (data) => {
+        set({ isSignigUp: true })
+        try {
+            const res = await axiosInstance.post('/auth/signup', data)
+            set({ authUser: res.data })
+            toast.success("Account Created Succesfully")
+        } catch (error) {
+            toast.error(error.response.data.message);
+
+        } finally {
+            set({ isSignigUp: falses })
+        }
 
     }
 }))
